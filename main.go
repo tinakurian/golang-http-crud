@@ -28,6 +28,7 @@ func main() {
 	r.HandleFunc("/api/fruits", fruitController.Create).Methods("POST")
 	r.HandleFunc("/api/fruits/{id:[0-9]+}", fruitController.Update).Methods("PUT")
 	r.HandleFunc("/api/fruits/{id:[0-9]+}", fruitController.Delete).Methods("DELETE")
+	r.PathPrefix("/").Handler(http.FileServer(assetFS()))
 
 	http.Handle("/", r)
 	r.Use(loggingMiddleware)
