@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"time"
 
 	_ "github.com/jinzhu/gorm/dialects/postgres"
@@ -12,7 +13,18 @@ import (
 )
 
 func main() {
-	db, err := NewFruitsRepository("postgres", "host=localhost port=5432 user=postgres dbname=postgres password=mysecretpassword sslmode=disable")
+	pgHost := getEnv("DB_HOST", "localhost")
+	pgPort := getEnv("DB_PORT", "5432")
+	pgUser := getEnv("DB_USER", "postgres")
+	pgDBname := getEnv("DB_DBNAME", "postgres")
+	pgPassword := getEnv("DB_PASSWORD", "mysecretpassword")
+	connectionString := fmt.Sprintf("host=%s port=%s user=%s dbname=%s password=%s sslmode=disable",
+		pgHost,
+		pgPort,
+		pgUser,
+		pgDBname,
+		pgPassword)
+	db, err := NewFruitsRepository("postgres", connectionString)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -45,4 +57,11 @@ func loggingMiddleware(next http.Handler) http.Handler {
 		next.ServeHTTP(w, r)
 
 	})
+}
+
+func getEnv(key, fallback string) string {
+	if value, ok := os.LookupEnv(key); ok {
+		return value
+	}
+	return fallback
 }
