@@ -144,7 +144,7 @@ objects:
           labels:
             app: golang-http-crud
             project: golang-http-crud
-                version: '${RELEASE_VERSION}'
+            version: '${RELEASE_VERSION}'
       replicas: 1
       selector:
         app: golang-http-crud
