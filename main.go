@@ -15,7 +15,7 @@ import (
 func main() {
 	pgHost := getEnv("DB_HOST", "localhost")
 	pgPort := getEnv("DB_PORT", "5432")
-	pgUser := getEnv("DB_USER", "postgres")
+	pgUser := getEnv("DB_USERNAME", "postgres")
 	pgDBname := getEnv("DB_DBNAME", "postgres")
 	pgPassword := getEnv("DB_PASSWORD", "mysecretpassword")
 	connectionString := fmt.Sprintf("host=%s port=%s user=%s dbname=%s password=%s sslmode=disable",
