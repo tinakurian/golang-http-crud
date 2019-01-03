@@ -15,12 +15,6 @@ type FruitController struct {
 	DB FruitRepository
 }
 
-// // FruitPayload reprsents the request payload required to create a fruit object.
-// type FruitPayload struct {
-// 	name  string
-// 	stock int
-// }
-
 // NewFruitController returns a new fruit controller
 func NewFruitController(db *DB) FruitController {
 	return FruitController{
