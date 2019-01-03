@@ -1,0 +1,21 @@
+#!/bin/bash
+
+set -e
+
+echo "Assembling GOPATH..."
+PACKAGE_NAME="github.com/golang-starters/golang-health-check"
+export GOPATH=`realpath $HOME/go`
+echo "Assembling GOPATH... DONE"
+
+
+mkdir -p $GOPATH/src/$PACKAGE_NAME
+mv /tmp/src/* $GOPATH/src/$PACKAGE_NAME
+cd $GOPATH/src/$PACKAGE_NAME
+
+echo "Resolving dependencies..."
+go get -v
+echo "Resolving dependencies... DONE"
+
+echo "Building..."
+go build -o /tmp/gobinary
+echo "Building... DONE"
